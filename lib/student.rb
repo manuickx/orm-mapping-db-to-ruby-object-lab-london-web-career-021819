@@ -13,70 +13,70 @@ class Student
   def self.all
     # retrieve all the rows from the "Students" database
     # remember each row should be a new instance of the Student class
-    querry = <<-SQL
+    query = <<-SQL
       SELECT *
       FROM students
       SQL
-      DB[:conn].execute(querry).map {|row| new_from_db(row)}
+      DB[:conn].execute(query).map {|row| new_from_db(row)}
   end
 
   def self.find_by_name(name)
     # find the student in the database given a name
     # return a new instance of the Student class
-    querry = <<-SQL
+    query = <<-SQL
       SELECT *
       FROM students
       WHERE name = ?
       LIMIT 1
       SQL
-      DB[:conn].execute(querry, name).map {|row| self.new_from_db(row)}.first
+      DB[:conn].execute(query, name).map {|row| self.new_from_db(row)}.first
   end
 
   def self.all_students_in_grade_9
-    querry = <<-SQL
+    query = <<-SQL
       SELECT *
       FROM students
       WHERE grade = 9
       SQL
-    DB[:conn].execute(querry)
+    DB[:conn].execute(query)
   end
 
   def self.students_below_12th_grade
-    querry = <<-SQL
+    query = <<-SQL
       SELECT *
       FROM students
       WHERE grade < 12
       SQL
-    DB[:conn].execute(querry).map {|row| self.new_from_db(row)}
+    DB[:conn].execute(query).map {|row| self.new_from_db(row)}
   end
 
   def self.first_X_students_in_grade_10(x)
-    querry = <<-SQL
+    query = <<-SQL
       SELECT *
       FROM students
       WHERE grade = 10
       LIMIT ?
       SQL
-    DB[:conn].execute(querry, x)
+    DB[:conn].execute(query, x)
   end
 
   def self.first_student_in_grade_10
-    querry = <<-SQL
+    query = <<-SQL
       SELECT *
       FROM students
       WHERE grade = 10
       LIMIT 1
       SQL
-    DB[:conn].execute(querry).map {|row| self.new_from_db(row)}.first
+    DB[:conn].execute(query).map {|row| self.new_from_db(row)}.first
   end
 
   def self.all_students_in_grade_X(x)
-    querry = <<-SQL
+    query = <<-SQL
       SELECT *
       FROM students
       WHERE grade = ?
       SQL
-    DB[:conn].execute(querry, x)
+    DB[:conn].execute(query, x)
   end
 
   def save
